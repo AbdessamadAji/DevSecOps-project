@@ -138,7 +138,7 @@ jobs:
           image-ref: nighthawk777/devsecops-backend:v1
           format: table
           exit-code: 1
-          severity: HIGH, CRITICAL	
+          severity: HIGH,CRITICAL	
 
       - name: Trivy Fronend Scan
         uses: aquasecurity/trivy-action@v0.36.0
