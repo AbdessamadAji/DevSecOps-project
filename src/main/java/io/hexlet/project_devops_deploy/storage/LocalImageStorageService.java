@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 public class LocalImageStorageService implements ImageStorageService {
 
-    private final Path rootDir = Paths.get(System.getProperty("java.io.tmpdir"), "bulletin-images");
+    private final Path rootDir = Paths.get("uploads");
 
     @Override
     public String upload(String keyPrefix, MultipartFile file) {
