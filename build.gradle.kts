@@ -1,6 +1,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
+
 plugins {
     application
     alias(libs.plugins.versions)
@@ -83,5 +84,11 @@ spotless {
         eclipse()
         formatAnnotations()
         leadingTabsToSpaces(4)
+    }
+}
+
+dependencyCheck {
+    nvd {
+        apiKey = System.getenv("NVD_API_KEY")
     }
 }
