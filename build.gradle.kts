@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
     alias(libs.plugins.lombok)
+    id("org.owasp.dependencycheck") version "12.1.8"
 }
 
 group = "com.example"
