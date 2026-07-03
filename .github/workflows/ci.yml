@@ -60,29 +60,16 @@ jobs:
 
 
       # -------------------------
-      # Verify NVD API Key
+      # Trivy Filesystem Scan instead of gradle depndency check
       # -------------------------
 
-      - name: Verify NVD API Key
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: |
-          if [ -z "$NVD_API_KEY" ]; then
-            echo "NVD_API_KEY is NOT set"
-            exit 1
-          fi
+      - name: Trivy Filesystem Scan
+          uses: aquasecurity/trivy-action@v0.36.0
+          with:
+            scan-type: fs
+            scan-ref: .
+            severity: HIGH,CRITICAL
 
-          echo "NVD_API_KEY is available"
-
-
-      # -------------------------
-      # Dependency Scan
-      # -------------------------
-
-      - name: OWASP Dependency Check
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: ./gradlew dependencyCheckAnalyze --info --stacktrace
 
       # -------------------------
       # Tests
