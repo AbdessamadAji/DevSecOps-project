@@ -7,12 +7,25 @@ on:
 
 jobs:
   ci:
-
     runs-on: ubuntu-latest
 
-    steps:
+    services:
+      postgres:
+        image: postgres:18.4
+        env:
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
-      - name: Checkout
+    steps:
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -115,8 +128,27 @@ jobs:
 
       - name: Start Backend
         run: |
-          java -jar build/libs/*.jar &
-          sleep 40
+          java -jar build/libs/*.jar > backend.log 2>&1 &
+
+
+      # -------------------------
+      # Wait for backend
+      # -------------------------
+
+
+      - name: Wait for Backend
+        run: |
+          for i in {1..30}; do
+            if curl -fs http://localhost:8080/actuator/health; then
+              echo "Backend is ready"
+              exit 0
+            fi
+            sleep 5
+          done
+
+          echo "Backend failed to start"
+          cat backend.log
+          exit 1
 
 
       # -------------------------
