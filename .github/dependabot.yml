@@ -29,3 +29,5 @@ updates:
       all-github-actions-dependencies:
         patterns:
           - "*"
+
+# just a comment
