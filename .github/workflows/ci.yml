@@ -82,7 +82,7 @@ jobs:
       - name: OWASP Dependency Check
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: ./gradlew dependencyCheckAnalyze
+        run: ./gradlew dependencyCheckAnalyze --info --stacktrace
 
       # -------------------------
       # Tests

@@ -90,5 +90,7 @@ spotless {
 dependencyCheck {
     nvd {
         apiKey = System.getenv("NVD_API_KEY")
+        maxRetryCount = 10
+        delay = 6000
     }
 }
