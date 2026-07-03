@@ -58,6 +58,23 @@ jobs:
       - name: SAST Scan
         uses: returntocorp/semgrep-action@v1
 
+
+      # -------------------------
+      # Verify NVD API Key
+      # -------------------------
+
+      - name: Verify NVD API Key
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        run: |
+          if [ -z "$NVD_API_KEY" ]; then
+            echo "NVD_API_KEY is NOT set"
+            exit 1
+          fi
+
+          echo "NVD_API_KEY is available"
+
+
       # -------------------------
       # Dependency Scan
       # -------------------------
