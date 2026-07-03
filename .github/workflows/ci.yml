@@ -149,7 +149,7 @@ jobs:
           image-ref: nighthawk777/devsecops-frontend:v1
           format: table
           exit-code: 0
-          severity: HIGH, CRITICAL
+          severity: HIGH,CRITICAL
 
 
       # DAST
