@@ -64,9 +64,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
-      # -------------------------
+      # --------------------------
       # SAST
-      # -------------------------
+      # --------------------------
 
       - name: SAST Scan
         uses: returntocorp/semgrep-action@v1
