@@ -10,6 +10,8 @@ COPY dist/ /usr/share/nginx/html/
 
 USER 101:101
 
-EXPOSE 8080  # we can't use 80 because we can't change permissions
+# we can't use 80 because we can't change permissions
+
+EXPOSE 8080 
 
 CMD ["nginx", "-g", "daemon off;"]
