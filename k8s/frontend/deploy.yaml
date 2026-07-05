@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+  namespace: bulletin
+  labels:
+    app: frontend
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: frontend
+
+  template:
+    metadata:
+      labels:
+        app: frontend
+
+    spec:
+      securityContext:
+        fsGroup: 101
+
+      containers:
+        - name: frontend-container
+          image: nighthawk777/devsecops-frontend:v1
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8080
+
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 101
+            runAsGroup: 101
+            allowPrivilegeEscalation: false
+
+            capabilities:
+              drop:
+                - ALL
+
+            seccompProfile:
+              type: RuntimeDefault
+
+            #readOnlyRootFilesystem: true : will check this later
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: frontend-config

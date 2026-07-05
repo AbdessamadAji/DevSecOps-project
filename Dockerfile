@@ -5,12 +5,14 @@ WORKDIR /app
 COPY build/libs/project-devops-deploy-0.0.1-SNAPSHOT.jar app.jar
 
 # Never run the application as root
-RUN addgroup --system appgroup && \
-    adduser --system --ingroup appgroup appuser && \
+RUN addgroup --system --gid 1001 appgroup && \
+    adduser --system --uid 1001 --ingroup appgroup appuser && \
     mkdir -p /app/uploads && \
-    chown -R appuser:appgroup /app
+    chown -R 1001:1001 /app
 
-USER appuser
+USER 1001
+
+
 
 EXPOSE 8080
 
