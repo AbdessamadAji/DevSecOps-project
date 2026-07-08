@@ -13,6 +13,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3ClientBuilder;
+import software.amazon.awssdk.services.s3.S3Configuration;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -35,7 +36,8 @@ public class S3ImageStorageService implements ImageStorageService {
 
     private S3Client buildClient(S3StorageProperties props, StaticCredentialsProvider credentialsProvider) {
         S3ClientBuilder builder = S3Client.builder().region(Region.of(props.region()))
-                .credentialsProvider(credentialsProvider);
+                .credentialsProvider(credentialsProvider)
+                .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build());
 
         if (StringUtils.hasText(props.endpoint())) {
             builder.endpointOverride(URI.create(props.endpoint()));
@@ -46,10 +48,13 @@ public class S3ImageStorageService implements ImageStorageService {
 
     private S3Presigner buildPresigner(S3StorageProperties props, StaticCredentialsProvider credentialsProvider) {
         S3Presigner.Builder builder = S3Presigner.builder().region(Region.of(props.region()))
-                .credentialsProvider(credentialsProvider);
+                .credentialsProvider(credentialsProvider)
+                .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build());
+
         if (StringUtils.hasText(props.endpoint())) {
             builder.endpointOverride(URI.create(props.endpoint()));
         }
+
         return builder.build();
     }
 
@@ -67,7 +72,7 @@ public class S3ImageStorageService implements ImageStorageService {
                 .build();
 
         try {
-            client.putObject(request, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+            client.putObject(request, RequestBody.fromBytes(file.getBytes()));
         } catch (Exception e) {
             throw new StorageException("Failed to upload image", e);
         }

@@ -2,3 +2,6 @@
 !build/
 !build/**
 !Dockerfile
+!minio-seed/
+!uploads/
+!uploads/**

@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio-ingress
+  namespace: bulletin
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+    - host: bulletin.local
+      http:
+        paths:
+          - path: /minio(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: minio-service
+                port:
+                  number: 9000

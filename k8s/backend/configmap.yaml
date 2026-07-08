@@ -5,6 +5,6 @@ metadata:
   namespace: bulletin
 data:
   SPRING_PROFILES_ACTIVE: prod
-  SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/bulletins # i will change db with db service's name when i set it
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/bulletins # i will change db with db service's name when i set it
 
 

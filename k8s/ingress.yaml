@@ -4,18 +4,17 @@ kind: Ingress
 metadata:
   name: bulletin-ingress
   namespace: bulletin
-
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
 spec:
   ingressClassName: nginx
   rules:
     - host: bulletin.local
-
       http:
         paths:
           - path: /
             pathType: Prefix
-
-            backend: # if a request came to that path , do this : 
+            backend: # if a request came to that path, do this:
               service:
                 name: frontend-service
                 port:
@@ -23,15 +22,19 @@ spec:
 
           - path: /api
             pathType: Prefix
-
             backend:
               service:
                 name: backend-service
                 port:
                   number: 8080
 
-
-
+          - path: /minio
+            pathType: Prefix
+            backend:
+              service:
+                name: minio-service
+                port:
+                  number: 9000
 
 
 
