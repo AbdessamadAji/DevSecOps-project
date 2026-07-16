@@ -8,7 +8,7 @@ spec:
   description: Project for the Bulletin application
 
   sourceRepos:
-    - "https://github.com/AbdessamadAji/DevSecOps-project.git"
+    - "https://github.com/AbdessamadAji/DevSecOps-project"
 
   destinations:
     - namespace: bulletin
