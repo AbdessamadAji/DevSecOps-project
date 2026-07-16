@@ -1,0 +1,224 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2026-07-15T00:43:52Z"
+  generation: 83
+  name: bulletin-application
+  namespace: argocd
+  resourceVersion: "184194"
+  uid: 3a921950-93e4-49cb-aa11-a7e4016a6e35
+spec:
+  destination:
+    name: in-cluster
+    namespace: bulletin
+  project: bulletin-project
+  source:
+    directory:
+      recurse: true
+    path: k8s
+    repoURL: https://github.com/AbdessamadAji/DevSecOps-project
+    targetRevision: main
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: false
+      selfHeal: true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-07-16T17:42:34Z"
+    status: Healthy
+  history:
+  - deployStartedAt: "2026-07-15T01:07:38Z"
+    deployedAt: "2026-07-15T01:07:53Z"
+    id: 0
+    initiatedBy:
+      username: admin
+    revision: a76823be445f15e2545f57b6c4db81ea893c12ee
+    source:
+      directory:
+        recurse: true
+      path: k8s
+      repoURL: https://github.com/AbdessamadAji/DevSecOps-project
+      targetRevision: main
+  - deployStartedAt: "2026-07-16T17:40:59Z"
+    deployedAt: "2026-07-16T17:41:13Z"
+    id: 1
+    initiatedBy:
+      automated: true
+    revision: 1102124cd9061a49d9c4d19c925c544024ca4c6a
+    source:
+      directory:
+        recurse: true
+      path: k8s
+      repoURL: https://github.com/AbdessamadAji/DevSecOps-project
+      targetRevision: main
+  operationState:
+    finishedAt: "2026-07-16T17:42:33Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        autoHealAttemptsCount: 1
+        resources:
+        - group: apps
+          kind: Deployment
+          name: frontend-deploy
+        revision: 1102124cd9061a49d9c4d19c925c544024ca4c6a
+        source:
+          directory:
+            recurse: true
+          path: k8s
+          repoURL: https://github.com/AbdessamadAji/DevSecOps-project
+          targetRevision: main
+    phase: Succeeded
+    startedAt: "2026-07-16T17:42:30Z"
+    syncResult:
+      resources:
+      - group: apps
+        hookPhase: Running
+        images:
+        - nighthawk777/devsecops-frontend:v1
+        kind: Deployment
+        message: deployment.apps/frontend-deploy configured
+        name: frontend-deploy
+        namespace: bulletin
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 1102124cd9061a49d9c4d19c925c544024ca4c6a
+      source:
+        directory:
+          recurse: true
+        path: k8s
+        repoURL: https://github.com/AbdessamadAji/DevSecOps-project
+        targetRevision: main
+  reconciledAt: "2026-07-16T18:10:02Z"
+  resourceHealthSource: appTree
+  resources:
+  - kind: ConfigMap
+    name: backend-config
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: ConfigMap
+    name: frontend-config
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Namespace
+    name: bulletin
+    status: Synced
+    version: v1
+  - kind: PersistentVolumeClaim
+    name: minio-pvc
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: backend-secret
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: minio-secret
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: postgres-secret
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Service
+    name: backend-service
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Service
+    name: frontend-service
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Service
+    name: minio-service
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - kind: Service
+    name: postgres-service
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: backend-deploy
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: frontend-deploy
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: minio
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: apps
+    kind: StatefulSet
+    name: postgres
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: batch
+    kind: Job
+    name: minio-seed
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: networking.k8s.io
+    kind: Ingress
+    name: bulletin-ingress
+    namespace: bulletin
+    status: Synced
+    version: v1
+  - group: networking.k8s.io
+    kind: Ingress
+    name: minio-ingress
+    namespace: bulletin
+    status: Synced
+    version: v1
+  sourceHydrator: {}
+  sourceType: Directory
+  summary:
+    externalURLs:
+    - http://bulletin.local/
+    - http://bulletin.local/api
+    - http://bulletin.local/minio
+    - http://bulletin.local/minio(/|$)(.*)
+    images:
+    - minio/minio:RELEASE.2025-09-07T16-13-09Z
+    - nighthawk777/devsecops-backend:v1
+    - nighthawk777/devsecops-frontend:v1
+    - nighthawk777/minio-seed:v1
+    - postgres:17.6
+  sync:
+    comparedTo:
+      destination:
+        name: in-cluster
+        namespace: bulletin
+      source:
+        directory:
+          recurse: true
+        path: k8s
+        repoURL: https://github.com/AbdessamadAji/DevSecOps-project
+        targetRevision: main
+    revision: 1102124cd9061a49d9c4d19c925c544024ca4c6a
+    status: Synced
