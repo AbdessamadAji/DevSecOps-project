@@ -1,0 +1,6 @@
+gh api repos/AbdessamadAji/DevSecOps-project/actions/artifacts \
+  --paginate \
+  --jq '.artifacts[].id' | while read id; do
+    echo "Deleting artifact $id"
+    gh api -X DELETE repos/AbdessamadAji/DevSecOps-project/actions/artifacts/$id
+done
