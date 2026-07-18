@@ -34,7 +34,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # brings all commits : gitleaks needs it 
+          fetch-depth: 0 # brings all commits : gitleaks needs it .
 
       - name: Setup Java
         uses: actions/setup-java@v4
