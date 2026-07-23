@@ -1,0 +1,6 @@
+apiVersion: policy/v1
+kind: Eviction
+
+metadata:
+  name: backend-deploy-5dfb9bbb6f-gjh8p
+  namespace: bulletin

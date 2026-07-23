@@ -16,3 +16,4 @@ spec:
       max:
         cpu: "500m"
         memory: "512Mi"
+
