@@ -43,16 +43,24 @@ The main objectives of this project are:
 - TypeScript
 - Vite
 - Material UI
+- Nginx
 
 ### Backend
 
 - Spring Boot
 - Java 21
 - Gradle
+- Spring Security
+- Spring Boot Actuator
+- Micrometer
 
 ### Database
 
 - PostgreSQL
+
+### Object Storage
+
+- MinIO
 
 ### DevSecOps
 
@@ -67,15 +75,28 @@ The main objectives of this project are:
 - Trivy
 - Kubernetes
 - Helm
-- Ingress
+- NGINX Ingress Controller
 - ArgoCD
+- RBAC
+- Network Policies
+- ResourceQuota
+- LimitRange
+- PodDisruptionBudget
+- Velero
 
-### Monitoring
+### Monitoring & Logging
 
 - Prometheus
 - Grafana
 - Loki
 - Promtail
+
+### Backup
+
+- Velero
+- pg_dump
+- MinIO Client (mc)
+- Kubernetes CronJobs
 
 ---
 
